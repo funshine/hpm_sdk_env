@@ -40,3 +40,6 @@ build-type:
 default-type: [flash_sdram_xip, flash_xip]
 default-sample: hello_world
 default-board: hpm6750evkmini
+custom-board-path: D:/devs/hpmicro/hpm_projects/boards
+custom-sample-path: D:/devs/hpmicro/hpm_projects/apps
+output-directory: D:/devs/hpmicro/hpm_projects/outputs
