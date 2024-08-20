@@ -396,6 +396,9 @@ static void hpm_touchpad_read(lv_indev_drv_t *indev_drv, lv_indev_data_t *data)
 #if defined(CONFIG_TOUCH_GT9XX) &&  CONFIG_TOUCH_GT9XX
         data->point.x = touch_points[0].x;
         data->point.y = touch_points[0].y;
+#elif defined(CONFIG_TOUCH_GT1151) && CONFIG_TOUCH_GT1151
+        data->point.x = touch_points[0].x;
+        data->point.y = touch_points[0].y;
 #elif defined(CONFIG_TOUCH_FT5406) && CONFIG_TOUCH_FT5406
         data->point.x = touch_points[0].y;
         data->point.y = touch_points[0].x;

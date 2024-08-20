@@ -10,7 +10,11 @@
  *---------------------------------------------------------------------
  */
 #include "hpm_enet_drv.h"
+#if defined(RTL8211FD) && RTL8211FD
+#include "hpm_rtl8211fd_regs.h"
+#else
 #include "hpm_rtl8211_regs.h"
+#endif
 #include "hpm_rtl8211.h"
 
 /*---------------------------------------------------------------------

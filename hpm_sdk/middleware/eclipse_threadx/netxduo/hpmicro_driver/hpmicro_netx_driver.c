@@ -152,12 +152,21 @@ VOID enet_self_adaptive_port_speed(VOID)
 #else
 #if defined(__USE_DP83848) && __USE_DP83848
     dp83848_get_phy_status(ENET, &status);
+#elif defined(__USE_LAN8720) && __USE_LAN8720
+    lan8720_get_phy_status(ENET, &status);
 #else
     rtl8201_get_phy_status(ENET, &status);
 #endif
 #endif
 
     if (memcmp(&last_status, &status, sizeof(enet_phy_status_t)) != 0) {
+        if (status.enet_phy_link != last_status.enet_phy_link) {
+            if (nx_driver_information.nx_driver_information_state >= NX_DRIVER_STATE_INITIALIZED) {
+                nx_driver_information.nx_driver_information_ip_ptr->nx_ip_driver_link_up = status.enet_phy_link;
+                _nx_ip_driver_link_status_event(nx_driver_information.nx_driver_information_ip_ptr,
+                                                nx_driver_information.nx_driver_information_interface->nx_interface_index);
+            }
+        }
         memcpy(&last_status, &status, sizeof(enet_phy_status_t));
         if (status.enet_phy_link) {
             printf("Link Status: Up\n");
@@ -420,6 +429,8 @@ static UINT _nx_driver_hardware_initialize(NX_IP_DRIVER *driver_req_ptr)
 #else
 #if defined(__USE_DP83848) && __USE_DP83848
     dp83848_config_t phy_config;
+#elif defined(__USE_LAN8720) && __USE_LAN8720
+    lan8720_config_t phy_config;
 #else
     rtl8201_config_t phy_config;
 #endif
@@ -509,6 +520,10 @@ static UINT _nx_driver_hardware_initialize(NX_IP_DRIVER *driver_req_ptr)
     dp83848_reset(ENET);
     dp83848_basic_mode_default_config(ENET, &phy_config);
     if (dp83848_basic_mode_init(ENET, &phy_config) == true) {
+#elif defined(__USE_LAN8720) && __USE_LAN8720
+    lan8720_reset(ENET);
+    lan8720_basic_mode_default_config(ENET, &phy_config);
+    if (lan8720_basic_mode_init(ENET, &phy_config) == true) {
 #else
     rtl8201_reset(ENET);
     rtl8201_basic_mode_default_config(ENET, &phy_config);
@@ -688,6 +703,8 @@ static UINT _nx_driver_hardware_enable(NX_IP_DRIVER *driver_req_ptr)
 #else
 #if defined(__USE_DP83848) && __USE_DP83848
         dp83848_get_phy_status(ENET, &status);
+#elif defined(__USE_LAN8720) && __USE_LAN8720
+        lan8720_get_phy_status(ENET, &status);
 #else
         rtl8201_get_phy_status(ENET, &status);
 #endif

@@ -84,7 +84,7 @@ static void touch_thread_entry(ULONG thread_input)
 
     touch->touch_state = TOUCH_STATE_RELEASED;
     for(; ;) {
-        tx_thread_sleep(2);
+        tx_thread_sleep(20 * TX_TIMER_TICKS_PER_SECOND / 1000);
         status = touch_get_data(touch_points, &num_of_points);
         if ((status == status_success) &&\
             (num_of_points < HPM_TOUCH_MAX_POINTS) &&\

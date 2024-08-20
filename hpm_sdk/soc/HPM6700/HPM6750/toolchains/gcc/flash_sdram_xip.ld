@@ -284,6 +284,10 @@ SECTIONS
         KEEP(*(.ahb_sram))
     } > AHB_SRAM
 
+    .axi_sram (NOLOAD) : {
+        KEEP(*(.axi_sram))
+    } > AXI_SRAM
+
     .apb_sram (NOLOAD) : {
         KEEP(*(.backup_sram))
     } > APB_SRAM

@@ -14,7 +14,11 @@
 
 #if defined(__USE_RTL8211) && __USE_RTL8211
     #include "hpm_rtl8211.h"
+#if defined(RTL8211FD) && RTL8211FD
+    #include "hpm_rtl8211fd_regs.h"
+#else
     #include "hpm_rtl8211_regs.h"
+#endif
 #endif
 
 #if defined(__USE_DP83848) && __USE_DP83848

@@ -32,5 +32,10 @@ cmake-build-type:
 default-type:
   default: [flash_sdram_xip, flash_xip]
   HPM6E80: [flash_xip, flash_sdram_xip]
-default-sample: hello_world
-default-board: hpm6750evkmini
+default-sample: threadx_demo
+default-board: hpm6750carrier
+setting:
+  show-multicore-core1: 1
+custom-sample-path: D:/devs/hpmicro/hpm_projects/apps
+custom-board-path: D:/devs/hpmicro/hpm_projects/boards
+output-directory: D:/devs/hpmicro/hpm_projects/outputs

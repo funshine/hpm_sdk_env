@@ -50,6 +50,7 @@ void lan8720_reset(ENET_Type *ptr)
 
 void lan8720_basic_mode_default_config(ENET_Type *ptr, lan8720_config_t *config)
 {
+    (void) ptr;
     config->loopback         = false;                        /* Disable PCS loopback mode */
     #if defined(__DISABLE_AUTO_NEGO) && __DISABLE_AUTO_NEGO
     config->auto_negotiation = false;                        /* Disable Auto-Negotiation */

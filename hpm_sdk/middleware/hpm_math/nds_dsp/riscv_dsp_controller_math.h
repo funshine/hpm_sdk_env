@@ -496,7 +496,7 @@ typedef struct
  * @param[in] src    input data.
  * @return output data.
  */
-#if defined(__NDS32_EXT_DSP__) || (__NDS32_EXT_PERF__ == 1)
+#if defined(__NDS32_EXT_DSP__) || (defined(__NDS32_EXT_PERF__) && (__NDS32_EXT_PERF__ == 1))
 #define perf_test_sats(X, Y)        __nds32__clips(X, (Y - 1))
 
 #else
